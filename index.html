@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/mystyles.css">
     <title>Calculator</title>
 </head>
 <body>
     <div class="container">
-        <div class ="row">
+        <div class ="row" id="display">
             <p data-previous id="previous"></p>
-            <input type="text" value="0" maxlength="9" onfocus="this.value = this.value">
+            <input id="inputs" type="text" value="0" maxlength="9" onfocus="this.value = this.value">
         </div>
-    </div>
+   
     <div class="row">
         <button data-clear>AC</button>
         <button data-minus>+/-</button>
@@ -41,6 +43,7 @@
         <button data-number id="zero">0</button>
         <button data-number>.</button>
         <button data-equals id="equals">=</button>
+    </div>
     </div>
 
 </body>
