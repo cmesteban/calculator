@@ -71,3 +71,9 @@ button{
     outline: none;
     border-radius: 5%;
 }
+
+.pressed{
+    background-color: #ef6461;
+    color: #E4B363;
+    transition: all .4s ease;
+}
