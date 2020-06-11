@@ -53,7 +53,17 @@ function operation(a,op,b){
 
     return result;
 }
+//removes the pressed css effect from other opBtns and EqualsBtn and Percentage Btn
+function removeClass(){
+    for(let i = 0; i < opBtns.length; i++){
+        if(opBtns[i].classList.contains("pressed")){
+            opBtns[i].classList.remove("pressed")
+        }   
+    }
+    perBtn.classList.remove("pressed")
+    equalsBtn.classList.remove("pressed")
 
+}
 //Set up Event Listeners for the different Number Buttons
 numBtns.forEach(button => button.addEventListener('click',()=>{
     equalsBtn.classList.remove("pressed"); //removes equalsBtn highlight
@@ -92,7 +102,7 @@ numBtns.forEach(button => button.addEventListener('click',()=>{
 
 //Set Up Event Listener for Different Op Buttons
 opBtns.forEach(button => button.addEventListener('click', () =>{
-    
+    removeClass();
     button.classList.remove("notpressed");//removes css class
     button.classList.add("pressed");// adds css class
     if(previousElement.textContent !== "" && numPressed){// if theres alreay a previousElement and numPressed is true
@@ -109,3 +119,62 @@ opBtns.forEach(button => button.addEventListener('click', () =>{
 
 
 }));
+
+//Set Up Event Listener for EqualsBtn
+equalsBtn.addEventListener('click', () => {
+    removeClass();
+    equalsBtn.classList.add("pressed");//adds css class
+    if(op === ""){
+        return
+    } else {
+        if(numPressed === false){
+            a = Number(inputTextElement.value);
+        } else if(numPressed){
+            b = Number(inputTextElement.value);
+        }
+        inputTextElement.value = operation(a, op, b);
+        previousElement.textContent = inputTextElement.value;
+    }
+    opPressed = true;
+    numPressed = false; 
+});
+
+//Set Up Event Listener for Percentage Btn
+perBtn.addEventListener('click', () => {
+    removeClass();
+    perBtn.classList.add("pressed");
+    if(op === ""){
+        inputTextElement.value = Number(inputTextElement.value)/100;
+    } else {
+        b = Number(inputTextElement.value);
+        inputTextElement.value = a + ((a/100) * b);
+        b = ((a/100) * b);
+    }
+    opPressed = true;
+    numPressed = false; 
+})
+
+//Set Up Event Listener for Plus/Minus Button
+minusBtn.addEventListener('click', () => {
+    if(inputTextElement.value[0] !== "-"){
+        let arr = inputTextElement.value.split("");
+        arr.unshift("-").toString();
+        inputTextElement.value = arr.join("");
+    } else if(inputTextElement.value[0] === "-"){
+        let arr = inputTextElement.value.split("");
+        arr.shift().toString();
+        inputTextElement.value = arr.join("");
+    }
+    
+});
+
+//Set Up Event Listener for Clear Button
+clearBtn.addEventListener('click', () => {
+    inputTextElement.value = "0";
+    previousElement.textContent = "";
+    clearBtn.textContent = "AC";
+    removeClass();
+    a = "";
+    op = "";
+    b = "";
+});
